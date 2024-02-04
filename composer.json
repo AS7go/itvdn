@@ -1,0 +1,9 @@
+{
+    "name": "itvdn/itvdn-php-mvc-main",
+    "description": "PHP MVC framework developed by ITVDN",
+    "license": "proprietary",
+    "require": {
+        "twig/twig": "^3.0",
+        "mikecao/flight": "^3.0"
+    }
+}
