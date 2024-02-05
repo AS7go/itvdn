@@ -51,7 +51,8 @@ class BlogController
             $post_updated->content = $request->data->content;
             $post_updated->author = $request->data->author;
 
-            $result = $post_updated->updatePost($id);
+            // $result = $post_updated->updatePost($id);
+            $result = $post_updated->update($id);
 
             $message = 'Пост успешно обновлен';
         }
@@ -79,14 +80,16 @@ class BlogController
     public static function delete($id)
     {
         $post = new Post();
-        $post_data = $post->deletePost($id);
+        // $post_data = $post->deletePost($id);
+        $post_data = $post->delete($id);
 
         echo "Пост успешно удален";
     }
     public static function list()
     {
         $posts = new Post();
-        $list_posts = $posts->allPosts();
+        // $list_posts = $posts->allPosts();
+        $list_posts = $posts->all();
 
         Flight::view()->display('post/list.php', [
             'list_posts' => $list_posts

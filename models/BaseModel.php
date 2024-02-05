@@ -20,7 +20,13 @@ class BaseModel
             ->equals('id', $id)
             ->end();
 
-        return str_replace(':v1', $id, $builder->writeFormatted($query));
+        // return str_replace(':v1', $id, $builder->writeFormatted($query));
+        $request = str_replace(':v1', $id, $builder->writeFormatted($query));
+        $query_db = $this->db->query($request);
+        // $query_db->execute();
+        // $row=mysqli_fetch_assoc($query_db);
+        $row=$query_db -> fetch(PDO::FETCH_ASSOC);
+        return $row;
     }
     public function findAll()
     {
@@ -42,7 +48,13 @@ class BaseModel
             ->like($field, $value)
             ->end();
 
-        return str_replace(':v1', "'$value'", $builder->writeFormatted($query));
+        // return str_replace(':v1', "'$value'", $builder->writeFormatted($query));
+        $request = str_replace(':v1', "'$value'", $builder->writeFormatted($query));
+
+        $query_db = $this->db->query( $request );
+
+        $row = $query_db->fetch(PDO::FETCH_ASSOC);
+        return $row;
     }
     public function deleteById($id)
     {
@@ -52,7 +64,12 @@ class BaseModel
             ->equals('id', $id)
             ->end();
 
-        return str_replace(':v1', $id, $builder->writeFormatted($query));
+        // return str_replace(':v1', $id, $builder->writeFormatted($query));
+        $request = str_replace(':v1', $id, $builder->writeFormatted($query));
+        $query_db = $this->db->query( $request );
+
+        return true;
+
     }
     public function deleteWhere($field, $value)
     {
@@ -62,8 +79,13 @@ class BaseModel
             ->like($field, $value)
             ->end();
 
-        // return str_replace(':v1', $value, $builder->writeFormatted($query));
-        return str_replace(':v1', "'$value'", $builder->writeFormatted($query));
+        // return str_replace(':v1', "'$value'", $builder->writeFormatted($query));
+        $request = str_replace(':v1', "'$value'", $builder->writeFormatted($query));
+    
+        $query_db = $this->db->query( $request );
+
+        return true;
+    
     }
     public function updateById($id, $field, $value)
     {
@@ -76,47 +98,11 @@ class BaseModel
 
         $request = str_replace(':v1', "'$value'", $builder->writeFormatted($query));
         $request = str_replace(':v2', $id, $request);
-
-        return $request;
+        
+        $query_db = $this->db->query( $request );
+        
+        // return $request;
+        return true;
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class BaseModel
-// {
-//     private $db;
-//     private $table;
-
-//     public function __construct($table)
-//     {
-//         $this->db = Flight::db();
-//         $this->table = $table;
-//     }
-
-//     public function getAll()
-//     {
-//         $query = $this->db->prepare("SELECT * FROM $this->table")->execute();
-
-//         $allData = $query->fetch(PDO::FETCH_ASSOC);
-
-//         if (empty($allData)) {
-//             return false;
-//         } else {
-//             return $allData;
-//         }
-//     }
-// }
