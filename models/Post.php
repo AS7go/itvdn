@@ -1,8 +1,11 @@
 <?php
 
+include('BaseModel.php');
+
 class Post
 {
     private $db;
+    private $base;
 
     public $title;
     public $content;
@@ -11,12 +14,15 @@ class Post
     public function __construct()
     {
         $this->db = Flight::db();
+        $this->base = new BaseModel('posts');
+    
     }
 
     public function allPosts()
     {
-        $query = $this->db->query("SELECT * FROM posts");
-        $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+        // $query = $this->db->query($this->base->findAll());
+        // $rows = $query->fetchAll(PDO::FETCH_ASSOC);
+        $rows = $this->base->findAll();
         return $rows;
     }
 

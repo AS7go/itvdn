@@ -1,20 +1,20 @@
 <?php
 
 include("././models/Post.php");
-include("././models/BaseModel.php");
+// include("././models/BaseModel.php");
 
 class BlogController
 {
     public static function create()
     {
-        $base_model = new BaseModel('posts');
-        // $response = $base_model->findById(2);
-        // $response = $base_model->findAll();
-        // $response = $base_model->findWhereEquals('author', 'Author 2');
-        // $response = $base_model->deleteById(3);
-        // $response = $base_model->deleteWhere('author', 'аааа');
-        $response = $base_model->updateById(6, 'title', 'Title 6');
-        echo $response;
+        // $base_model = new BaseModel('posts');
+        // // $response = $base_model->findById(2);
+        // // $response = $base_model->findAll();
+        // // $response = $base_model->findWhereEquals('author', 'Author 2');
+        // // $response = $base_model->deleteById(3);
+        // // $response = $base_model->deleteWhere('author', 'аааа');
+        // $response = $base_model->updateById(6, 'title', 'Title 6');
+        // echo $response;
 
         $request = Flight::request();
 

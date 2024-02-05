@@ -5,10 +5,12 @@ use NilPortugues\Sql\QueryBuilder\Builder\GenericBuilder;
 class BaseModel
 {
     private $table;
+    private $db;
 
     public function __construct($table)
     {
         $this->table = $table;
+        $this->db = Flight::db();
     }
     public function findById($id)
     {
@@ -24,7 +26,13 @@ class BaseModel
     {
         $builder = new GenericBuilder();
         $query = $builder->select()->setTable($this->table);
-        return $builder->writeFormatted($query);
+        $request = $builder->writeFormatted($query);
+        $query_db = $this->db->query($request);
+        // $rows = $query_db->fetch_all(MYSQLI_ASSOC);
+        $rows = $query_db->fetchAll(PDO::FETCH_ASSOC);
+        return $rows;
+        
+        // return $builder->writeFormatted($query);
     }
     public function findWhereEquals($field, $value)
     {
