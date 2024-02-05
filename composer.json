@@ -4,6 +4,7 @@
     "license": "proprietary",
     "require": {
         "twig/twig": "^3.0",
-        "mikecao/flight": "^3.0"
+        "mikecao/flight": "^3.0",
+        "nilportugues/sql-query-builder": "^1.8"
     }
 }
