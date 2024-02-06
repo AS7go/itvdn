@@ -24,6 +24,7 @@ class Post
         // $query = $this->db->query($this->base->findAll());
         // $rows = $query->fetchAll(PDO::FETCH_ASSOC);
         $rows = $this->base->findAll();
+        // var_dump($rows);
         return $rows;
     }
 

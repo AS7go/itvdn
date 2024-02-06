@@ -36,6 +36,7 @@ class BaseModel
         $query_db = $this->db->query($request);
         // $rows = $query_db->fetch_all(MYSQLI_ASSOC);
         $rows = $query_db->fetchAll(PDO::FETCH_ASSOC);
+        // var_dump($rows);
         return $rows;
         
         // return $builder->writeFormatted($query);

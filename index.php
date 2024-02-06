@@ -34,6 +34,7 @@ Flight::register('view', 'Twig\Environment', array($loader, $twigConfig), functi
  */
 Flight::path(dirname(__FILE__) . '/controllers');
 Flight::path(dirname(__FILE__) . '/models');
+Flight::path(dirname(__FILE__) . '/repositories');
 
 /**
  * Include routes

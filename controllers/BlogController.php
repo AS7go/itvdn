@@ -1,32 +1,26 @@
 <?php
 
-include("././models/Post.php");
+// include("././models/Post.php");
+include("././repositories/PostRepository.php");
 // include("././models/BaseModel.php");
 
 class BlogController
 {
     public static function create()
     {
-        // $base_model = new BaseModel('posts');
-        // // $response = $base_model->findById(2);
-        // // $response = $base_model->findAll();
-        // // $response = $base_model->findWhereEquals('author', 'Author 2');
-        // // $response = $base_model->deleteById(3);
-        // // $response = $base_model->deleteWhere('author', 'аааа');
-        // $response = $base_model->updateById(6, 'title', 'Title 6');
-        // echo $response;
-
         $request = Flight::request();
 
         $message = '';
 
         if (!empty($request->data->content)) {
 
-            $post = new Post();
-            $post->title = $request->data->title;
-            $post->content = $request->data->content;
-            $post->author = $request->data->author;
-            $post->createPost();
+            PostRepository::create([
+                'title' => $request->data->title,
+                'content' => $request->data->content,
+                'author' => $request->data->author
+
+            ]);
+
 
             $message = 'Пост успешно создан';
         }
@@ -40,27 +34,25 @@ class BlogController
     {
         $request = Flight::request();
 
-        $post = new Post();
-        $post_data = $post->findById($id);
+        $post = PostRepository::findPost($id);
 
         $message = '';
 
         if (!empty($request->data->content)) {
-            $post_updated = new Post();
-            $post_updated->title = $request->data->title;
-            $post_updated->content = $request->data->content;
-            $post_updated->author = $request->data->author;
+            PostRepository::update([
+                'id'=>$id,
+                'title' => $request->data->title,
+                'content' => $request->data->content,
+                'author' => $request->data->author
 
-            // $result = $post_updated->updatePost($id);
-            $result = $post_updated->update($id);
+            ]);
 
             $message = 'Пост успешно обновлен';
         }
-
         Flight::view()->display('post/update.php', [
-            'title' => $post_data['title'],
-            'content' => $post_data['content'],
-            'author' => $post_data['author'],
+            'title' => $post['title'],
+            'content' => $post['content'],
+            'author' => $post['author'],
             'message' => $message,
             'id' => $id
         ]);
@@ -68,28 +60,38 @@ class BlogController
 
     public static function show($id)
     {
-        $post = new Post();
-        $post_data = $post->findById($id);
-
+        // $post = new Post();
+        // $post_data = $post->findById($id);
+        
+        $post = PostRepository::findPost($id);
+        
         Flight::view()->display('post/show.php', [
-            'title' => $post_data['title'],
-            'content' => $post_data['content'],
-            'author' => $post_data['author']
+            'title' => $post['title'],
+            'content' => $post['content'],
+            'author' => $post['author']
         ]);
+        
+        // Flight::view()->display('post/show.php', [
+        //     'title' => $post_data['title'],
+        //     'content' => $post_data['content'],
+        //     'author' => $post_data['author']
+        // ]);
     }
     public static function delete($id)
     {
-        $post = new Post();
-        // $post_data = $post->deletePost($id);
-        $post_data = $post->delete($id);
+        // $post = new Post();
+        // $post_data = $post->delete($id);
+
+        PostRepository::delete($id);
 
         echo "Пост успешно удален";
     }
     public static function list()
     {
-        $posts = new Post();
-        // $list_posts = $posts->allPosts();
-        $list_posts = $posts->all();
+        // $posts = new Post();
+        // $list_posts = $posts->all();
+
+        $list_posts = PostRepository::all();
 
         Flight::view()->display('post/list.php', [
             'list_posts' => $list_posts
