@@ -6,7 +6,35 @@ error_reporting(E_ALL ^ E_DEPRECATED);
 
 include dirname(__FILE__) . '/vendor/autoload.php';
 
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
+
 use Twig\Loader\FilesystemLoader;
+
+/**
+ * Configuration of Doctrine ORM
+ */
+/**
+ * Configuration of Doctrine ORM
+ */
+$paths = array(dirname(__FILE__) . '/entity'); // Путь к папке с сущностями Doctrine
+$isDevMode = false; // Режим разработки (false означает использование продуктивного режима)
+
+// Конфигурация соединения
+$dbParams = array(
+    'driver'   => 'pdo_mysql', // Драйвер базы данных
+    'host'     => 'db', // Хост базы данных
+    'user'     => 'root', // Имя пользователя базы данных
+    'password' => 'secret', // Пароль пользователя базы данных
+    'dbname'   => 'itvdn', // Имя базы данных
+);
+
+// Создание конфигурации с использованием аннотаций в сущностях Doctrine
+$config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
+
+// Создание менеджера сущностей Doctrine
+$entityManager = EntityManager::create($dbParams, $config);
+
 
 /**
  * Connect to database

@@ -5,6 +5,10 @@
     "require": {
         "twig/twig": "^3.0",
         "mikecao/flight": "^3.0",
-        "nilportugues/sql-query-builder": "^1.8"
+        "nilportugues/sql-query-builder": "^1.8",
+        "doctrine/orm": "2.9",
+        "doctrine/cache": "^2.1",
+        "doctrine/dbal": "^2.13",
+        "symfony/cache": "^3.0"
     }
 }
